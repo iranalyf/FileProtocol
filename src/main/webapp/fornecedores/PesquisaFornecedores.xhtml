@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event listener="#{fornecedorController.inicializaFornecedores}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa de Fornecedores</h1>
+
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<br />
+			
+			<p:dataTable id="fornecedoresTable" style="margin-top: 20px"
+				emptyMessage="Nenhum Fornecedor encontrado." rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom"
+				value="#{fornecedorController.fornecedores}" var="f">
+				<p:column headerText="Código"
+					style="text-align: center; width: 100px">
+					<h:outputText value="#{f.codigoFornecedor}" />
+				</p:column>
+				<p:column headerText="Fornecedor">
+					<h:outputText value="#{f.descricaoFornecedor}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/fornecedores/CadastroFornecedor">
+						<f:param value="#{f.codigoFornecedor}" name="fornecedor" />
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						action="#{fornecedorController.excluir}" process="@this"
+						update="fornecedoresTable">
+						<f:setPropertyActionListener value="#{f}"
+							target="#{fornecedorController.fornecedorSelecionado}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

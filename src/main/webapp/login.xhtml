@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="UTF-8" />
+	<h:outputStylesheet library="css" name="login.css" />
+</h:head>
+
+<div>
+	<h:form>
+	<p:messages autoUpdate="true" closable="true"/>
+		<p:panelGrid columns="1" styleClass="grid-login; semBorda">
+			<h2>Faça seu Login</h2>
+			<p:inputText placeholder="Informe seu Nome de Usuário" size="30"
+				value="#{loginController.email}" />
+			<p:password placeholder="Informe sua Senha" size="30"
+				value="#{loginController.senha}" />
+			<p:commandButton value="Acessar o Sistema"
+				action="#{loginController.login}" ajax="false" />
+		</p:panelGrid>
+	</h:form>
+</div>
+<h:body>
+
+
+</h:body>
+</html>

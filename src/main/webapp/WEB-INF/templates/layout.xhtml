@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<meta charset="UTF-8" />
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+
+<h:body>
+
+	<header>
+		<div style="float: left; margin-left: 40px">
+			<h1>File Protocol</h1>
+		</div>
+
+		<div style="float: right; margin-right: 110px">
+			<span
+				style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+				Olá <B> #{loginController.usuario.nome}</B>
+			</span>
+
+			<h:form style="display: inline-block">
+				<p:menubar styleClass="menu-sistema">
+
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Cadastrar Usuário"
+							outcome="/usuarios/CadastroUsuario" />
+						<p:menuitem value="Cadastrar Fornecedor"
+							outcome="/fornecedores/CadastroFornecedor" />
+						<p:separator />
+						<p:menuitem value="Cadastrar Entrega"
+							outcome="/entregas/CadastroEntrega" />
+					</p:submenu>
+
+					<p:submenu label="Consultas">
+
+						<p:menuitem value="Consultar Entregas"
+							outcome="/entregas/PesquisaEntregas" />
+						<p:menuitem value="Consultar Usuários"
+							outcome="/usuarios/PesquisaUsuarios" />
+						<p:menuitem value="Consultar Fornecedores"
+							outcome="/fornecedores/PesquisaFornecedores" />
+					</p:submenu>
+
+					<p:submenu label="Sair">
+						<p:menuitem value="Sair do Sistema"
+							action="#{loginController.invalidateSession}" />
+					</p:submenu>
+
+				</p:menubar>
+			</h:form>
+
+		</div>
+		<div style="clear: both"></div>
+	</header>
+
+
+	<div id="conteudo">
+		<ui:insert name="corpo" />
+
+	</div>
+	<!-- -Qubra de linhas antes do rodapé -->
+	<br />
+	<br />
+	<br />
+
+	<footer>
+		<hr />
+		<span>©Copyright 2017.. File Protocol</span>
+	</footer>
+
+	<h:form id="dialogConfirm">
+		<p:confirmDialog>
+
+			<p:commandButton value="não" icon="ui-icon-close"
+				styleClass="ui-confirmDialog-no" />
+			<p:commandButton value="sim" icon="ui-icon-check"
+				styleClass="ui-confirmDialog-yes" />
+
+		</p:confirmDialog>
+	</h:form>
+</h:body>
+</html>

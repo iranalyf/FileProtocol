@@ -1,0 +1,1 @@
+insert into Usuario(email,nome,senhaUsuario,fk_setor) values ('admin@fileprotocol.com','Admin','admin',1);

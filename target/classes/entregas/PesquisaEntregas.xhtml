@@ -1,0 +1,78 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event listener="#{entregaController.inicializaEntregas}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa de Entregas</h1>
+
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:dataTable id="entregasTable" style="margin-top: 20px"
+				emptyMessage="Nenhuma entrega encontrada." rows="20"
+				paginator="true" paginatorAlwaysVisible="false"
+				paginatorPosition="bottom" value="#{entregaController.entregas}"
+				var="e">
+
+				<p:column headerText="Código"
+					style="text-align: center; width: 100px">
+					<h:outputText value="#{e.codigoEntrega}" />
+				</p:column>
+				<p:column headerText="Usuário Geração">
+					<h:outputText value="#{e.usuario.nome}" />
+				</p:column>
+
+				<p:column headerText="Setor Responsável">
+					<h:outputText value="#{e.usuario.setor.setor.descricao}" />
+				</p:column>
+
+				<p:column headerText="Número NFe">
+					<h:outputText value="#{e.nfe.numeroNfe}" />
+				</p:column>
+
+				<p:column headerText="Data Emissão NFe">
+					<h:outputText value="#{e.nfe.dataEmissaoNfe}" />
+				</p:column>
+
+				<p:column headerText="Data Vencimento NFe">
+					<h:outputText value="#{e.nfe.dataVencimentoNfe}" />
+				</p:column>
+
+				<p:column headerText="Fornecedor">
+					<h:outputText value="#{e.fornecedor.descricaoFornecedor}" />
+				</p:column>
+
+				<p:column headerText="Usuário Destino">
+					<h:outputText value="#{e.usuarioDestino.nome}" />
+				</p:column>
+
+				<p:column headerText="Setor Usuário Destino">
+					<h:outputText value="#{e.usuarioDestino.setor.setor.descricao}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/entregas/CadastroEntrega">
+						<f:param value="#{e.codigoEntrega}" name="entrega" />
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						process="@this" action="#{entregaController.excluir}"
+						update="entregasTable">
+						<f:setPropertyActionListener value="#{e}"
+							target="#{entregaController.entregaSelecionada}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

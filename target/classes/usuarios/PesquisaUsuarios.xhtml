@@ -1,0 +1,54 @@
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:event listener="#{usuarioController.inicializaUsuarios}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa de Usuários</h1>
+
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<br />
+
+
+			<p:dataTable id="usuariosTable" style="margin-top: 20px"
+				value="#{usuarioController.usuarios}" var="u"
+				emptyMessage="Nenhum usuário encontrado." rows="20" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Código"
+					style="text-align: center; width: 100px">
+					<h:outputText value="#{u.codigoUsuario}" />
+				</p:column>
+				<p:column headerText="Nome Usuário">
+					<h:outputText value="#{u.nome}" />
+				</p:column>
+
+				<p:column headerText="E-mail:">
+					<h:outputText value="#{u.email}" />
+				</p:column>
+
+				<p:column style="width: 100px; text-align: center">
+					<p:button icon="ui-icon-pencil" title="Editar"
+						outcome="/usuarios/CadastroUsuario">
+						<f:param name="usuario" value="#{u.codigoUsuario}" />
+					</p:button>
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						action="#{usuarioController.excluir}" process="@this"
+						update="usuariosTable">
+						<f:setPropertyActionListener value="#{u}"
+							target="#{usuarioController.usuarioSelecionado}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>
